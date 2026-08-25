@@ -24,13 +24,14 @@ public class Player extends Button {
 	public Player() {
 		super();
 		
-		this.velocity.set(100, 100);
+		this.originalVelocity.set(150, 150);
+		
 		this.material = Material.STEEL;
 	}
 	
 	@Override
 	public void draw(Graphics2D g2d) {
-		super.draw(g2d, Color.PINK);
+		super.draw(g2d, this.team.color);
 		
 		if(isKicking) {
 			Drawer.drawKickingBorder(g2d, this, null, 2.0f);

@@ -81,14 +81,18 @@ public class GamePanel extends JPanel implements Runnable {
     }
 	
 	public void addButtonsToMatch() {
-		Player player = new Player();
-		player.position.set(Constants.WINDOW_WIDTH/2, Constants.WINDOW_HEIGHT * 2/3);
+		for(int i = 0; i < 1; i++) {
+			Player player = new Player();
+			player.position.set(Constants.WINDOW_WIDTH/2, Constants.WINDOW_HEIGHT * 2/3);
+			gameMatch.addPlayer(player);
+		}
 		
-		Ball ball = new Ball();
-		ball.position.set(Constants.WINDOW_WIDTH/2, Constants.WINDOW_HEIGHT/2);
-		
-		gameMatch.addPlayer(player);
-		gameMatch.addBall(ball);
+		for(int i = 0; i < 1; i++) {
+			Ball ball = new Ball();
+			ball.position.set(Constants.WINDOW_WIDTH/2, Constants.WINDOW_HEIGHT/2);
+			
+			gameMatch.addBall(ball);
+		}
 	}
 	
 	private void addTextDisplay() {
@@ -134,7 +138,7 @@ public class GamePanel extends JPanel implements Runnable {
     	for(Player player : players) {
     		ControllerMode mode = player.getControllerMode();
     		
-    		player.velocity.set(100, 100);
+    		player.velocity = player.originalVelocity.multiply(1);
     		
     		mx = 0f;
     		my = 0f;
@@ -142,7 +146,7 @@ public class GamePanel extends JPanel implements Runnable {
         	player.setKicking(keyboard.isKeyPressed(mode, Movement.KICK));
         	
         	if(player.isKicking()) {
-        		player.velocity.set(90, 90);
+        		player.velocity = player.velocity.multiply(0.8f);
         	}
         	
         	if(keyboard.isKeyPressed(mode, Movement.UP)) {
@@ -156,7 +160,7 @@ public class GamePanel extends JPanel implements Runnable {
         	if(keyboard.isKeyPressed(mode, Movement.LEFT)) {
         		mx -= dt * player.velocity.getX();
         	}
-        	
+        	 
         	if(keyboard.isKeyPressed(mode, Movement.RIGHT)) {
         		mx += dt * player.velocity.getX();
         	}

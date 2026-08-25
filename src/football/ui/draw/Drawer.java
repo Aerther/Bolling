@@ -88,7 +88,7 @@ public class Drawer {
 	private static void drawGoals(Graphics2D g2d) {
 		g2d.setColor(Color.WHITE);
 		
-		int width = Math.min(Constants.GOAL_WIDTH, 50);
+		int width = Constants.GOAL_WIDTH;
 		int height = Constants.GOAL_HEIGHT;
 		int y = Constants.WINDOW_HEIGHT / 2 - Constants.GOAL_HEIGHT / 2;
 		

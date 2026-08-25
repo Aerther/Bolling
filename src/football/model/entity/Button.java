@@ -11,9 +11,11 @@ import football.ui.draw.Drawer;
 public abstract class Button {
 	public Vector2d position = new Vector2d(0, 0);
 	public Vector2d velocity = new Vector2d(0, 0);
+	public Vector2d originalVelocity = new Vector2d(0, 0);
 	
 	public int radius = 20;
 	public float mass = 1;
+	public float inverseMass = 1;
 	
 	public boolean onAir = true;
 	
@@ -37,22 +39,23 @@ public abstract class Button {
 		
 		this.radius = radius;
 		this.mass = mass;
+		this.inverseMass = this.mass == 0 ? 0 : 1 / this.mass;
 	}
 	
 	public double bottomLimit() {
-		return this.position.getY() + 2 * this.radius;
+		return this.position.getY() + this.radius;
 	}
 	
 	public double upperLimit() {
-		return this.position.getY();
+		return this.position.getY() - this.radius;
 	}
 	
 	public double leftLimit() {
-		return this.position.getX();
+		return this.position.getX() - this.radius;
 	}
 	
 	public double rightLimit() {
-		return this.position.getX() + 2 * this.radius;
+		return this.position.getX() + this.radius;
 	}
 	
 	public void draw(Graphics2D g2d, Color color) {

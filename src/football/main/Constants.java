@@ -22,5 +22,6 @@ public class Constants {
 	
 	public static final float GRAVITY = 100f;
 	public static final float ELASTIC_COLLISION = 0.9f;
+	public static final float KICK_POWER = 800f;
 	public static final int FPS = 60;
 }
