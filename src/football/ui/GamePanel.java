@@ -15,6 +15,7 @@ import java.util.List;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import football.ai.BotAlgorithm;
 import football.core.engine.GameMatch;
 import football.core.engine.MatchRules;
 import football.core.engine.PhysicsEngine;
@@ -23,11 +24,14 @@ import football.core.input.listener.KeyboardListener;
 import football.main.Constants;
 import football.math.Vector2d;
 import football.model.entity.Ball;
+import football.model.entity.Bot;
 import football.model.entity.Button;
 import football.model.entity.Player;
 import football.model.enums.ControllerMode;
 import football.model.enums.GoalSide;
 import football.model.enums.Movement;
+import football.model.enums.PlayStyle;
+import football.model.enums.Team;
 import football.ui.draw.Drawer;
 import football.ui.draw.TextRenderer;
 
@@ -93,6 +97,31 @@ public class GamePanel extends JPanel implements Runnable {
 			
 			gameMatch.addBall(ball);
 		}
+		
+		PlayStyle[] styles = {PlayStyle.DEFENDING, PlayStyle.TOBALL, PlayStyle.ATTACKING};
+		
+		for(int i = 0; i < styles.length; i++) {
+			Bot bot = new Bot();
+			bot.position.set(Constants.WINDOW_WIDTH/2, Constants.WINDOW_HEIGHT * 1/3);
+			bot.setTeam(Team.BLUE);
+			bot.setPlayStyle(styles[i]);
+			
+			gameMatch.addBot(bot);
+		}
+		
+		Bot bot = new Bot();
+		bot.position.set(Constants.WINDOW_WIDTH/2, Constants.WINDOW_HEIGHT * 1/3);
+		bot.setTeam(Team.RED);
+		bot.setPlayStyle(PlayStyle.DEFENDING);
+		
+		gameMatch.addBot(bot);
+		
+		bot = new Bot();
+		bot.position.set(Constants.WINDOW_WIDTH/2, Constants.WINDOW_HEIGHT * 1/3);
+		bot.setTeam(Team.RED);
+		bot.setPlayStyle(PlayStyle.ATTACKING);
+		
+		gameMatch.addBot(bot);
 	}
 	
 	private void addTextDisplay() {
@@ -165,11 +194,35 @@ public class GamePanel extends JPanel implements Runnable {
         		mx += dt * player.velocity.getX();
         	}
         	
-        	Vector2d addVector = new Vector2d(mx, my);
+        	Vector2d movement = new Vector2d(mx, my);
         	
-        	player.position = player.position.add(addVector);
+        	player.position = player.position.add(movement);
         	
         	PhysicsEngine.letInsideWalls(player);
+    	}
+    	
+    	List<Bot> bots = gameMatch.getBots();
+    	
+    	for(Bot bot : bots) {
+    		Ball ball = gameMatch.getBalls().get(0);
+    		Player player = gameMatch.findPlayerById(1);
+    		
+    		bot.velocity = bot.originalVelocity.multiply(1);
+    		
+    		PlayStyle style = bot.getPlayStyle();
+    		Vector2d movement = new Vector2d(0, 0);
+    		
+    		if(style == PlayStyle.TOBALL) {
+    			movement = BotAlgorithm.toBallPathFinding(bot, ball);
+    		} else if(style == PlayStyle.DEFENDING) {
+    			movement = BotAlgorithm.defendingPathFinding(bot, ball);
+    		} else if(style == PlayStyle.BLOCKING) {
+    			movement = BotAlgorithm.blockingPathFinding(bot, player, ball);
+    		} else if(style == PlayStyle.ATTACKING) {
+    			movement = BotAlgorithm.attackingPathFinding(bot, ball);
+    		}
+    		
+    		bot.position = bot.position.add(movement.multiply(dt));
     	}
     	
     	List<Ball> balls = gameMatch.getBalls();

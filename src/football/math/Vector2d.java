@@ -60,6 +60,15 @@ public class Vector2d {
 		return result;
 	}
 	
+	public Vector2d multiply(float scaleFactorX, float scaleFactorY) {
+		var result = new Vector2d();
+		
+		result.setX(this.x * scaleFactorX);
+		result.setY(this.y * scaleFactorY);
+		
+		return result;
+	}
+	
 	public Vector2d normalize() {
 		float len = this.length();
 		

@@ -10,6 +10,7 @@ import football.model.entity.Player;
 import football.model.enums.GoalSide;
 
 public class PhysicsEngine {
+	
 	public static boolean didCollide(Button bt1, Button bt2) {
 		Vector2d delta = bt1.position.subtract(bt2.position);
 		
