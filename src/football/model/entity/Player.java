@@ -8,6 +8,7 @@ import java.awt.geom.Ellipse2D;
 
 import football.math.Vector2d;
 import football.model.enums.ControllerMode;
+import football.model.enums.GoalSide;
 import football.model.enums.Material;
 import football.model.enums.Team;
 import football.ui.draw.Drawer;

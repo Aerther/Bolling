@@ -43,19 +43,19 @@ public abstract class Button {
 	}
 	
 	public double bottomLimit() {
-		return this.position.getY() + this.radius;
+		return this.position.y + this.radius;
 	}
 	
 	public double upperLimit() {
-		return this.position.getY() - this.radius;
+		return this.position.y - this.radius;
 	}
 	
 	public double leftLimit() {
-		return this.position.getX() - this.radius;
+		return this.position.x - this.radius;
 	}
 	
 	public double rightLimit() {
-		return this.position.getX() + this.radius;
+		return this.position.x + this.radius;
 	}
 	
 	public void draw(Graphics2D g2d, Color color) {

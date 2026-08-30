@@ -19,7 +19,7 @@ public class Drawer {
 			g2d.setColor(color);
 		}
 		
-		g2d.fill(new Ellipse2D.Float(button.position.getX() - button.radius, button.position.getY() - button.radius, 2 * button.radius, 2 * button.radius));
+		g2d.fill(new Ellipse2D.Float(button.position.x - button.radius, button.position.y - button.radius, 2 * button.radius, 2 * button.radius));
 	}
 	
 	public static void drawKickingBorder(Graphics2D g2d, Player player, Color color, float stroke) {
@@ -33,7 +33,7 @@ public class Drawer {
 		
 		g2d.setStroke(new BasicStroke(stroke));
 		
-		g2d.draw(new Ellipse2D.Float(player.position.getX() - player.radius, player.position.getY() - player.radius, 2 * player.radius, 2 * player.radius));
+		g2d.draw(new Ellipse2D.Float(player.position.x - player.radius, player.position.y - player.radius, 2 * player.radius, 2 * player.radius));
 		
 		g2d.setStroke(oldStroke);
 	}

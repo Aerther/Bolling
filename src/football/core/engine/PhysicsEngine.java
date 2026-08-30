@@ -10,6 +10,7 @@ import football.model.entity.Player;
 import football.model.enums.GoalSide;
 
 public class PhysicsEngine {
+	
 	public static boolean didCollide(Button bt1, Button bt2) {
 		Vector2d delta = bt1.position.subtract(bt2.position);
 		
@@ -96,11 +97,11 @@ public class PhysicsEngine {
 	            if (ball.upperLimit() < goalTop) {
 	                ball.position.setY(goalTop + ball.radius);
 	                
-	                ball.velocity.setY(-ball.velocity.getY());
+	                ball.velocity.setY(-ball.velocity.y);
 	            } else if (ball.bottomLimit() > goalBottom) {
 	                ball.position.setY(goalBottom - ball.radius);
 	                
-	                ball.velocity.setY(-ball.velocity.getY());
+	                ball.velocity.setY(-ball.velocity.y);
 	            }
 	            
 	            return;
@@ -144,11 +145,11 @@ public class PhysicsEngine {
 	        float restitution = button.material.getRestitution();
 
 	        if (collidedX) {
-	            button.velocity.setX(-button.velocity.getX() * restitution);
+	            button.velocity.setX(-button.velocity.x * restitution);
 	        }
 	        
 	        if (collidedY) {
-	            button.velocity.setY(-button.velocity.getY() * restitution);
+	            button.velocity.setY(-button.velocity.y * restitution);
 	        }
 	    }
 	}
