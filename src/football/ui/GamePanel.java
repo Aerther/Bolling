@@ -11,6 +11,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -179,22 +180,22 @@ public class GamePanel extends JPanel implements Runnable {
         	}
         	
         	if(keyboard.isKeyPressed(mode, Movement.UP)) {
-        		my -= dt * player.velocity.getY();
+        		my -= player.velocity.y;
         	}
         	
         	if(keyboard.isKeyPressed(mode, Movement.DOWN)) {
-        		my += dt * player.velocity.getY();
+        		my += player.velocity.y;
         	}
         	
         	if(keyboard.isKeyPressed(mode, Movement.LEFT)) {
-        		mx -= dt * player.velocity.getX();
+        		mx -= player.velocity.x;
         	}
         	 
         	if(keyboard.isKeyPressed(mode, Movement.RIGHT)) {
-        		mx += dt * player.velocity.getX();
+        		mx += player.velocity.x;
         	}
         	
-        	Vector2d movement = new Vector2d(mx, my);
+        	Vector2d movement = new Vector2d(mx, my).multiply(dt);
         	
         	player.position = player.position.add(movement);
         	
@@ -209,20 +210,11 @@ public class GamePanel extends JPanel implements Runnable {
     		
     		bot.velocity = bot.originalVelocity.multiply(1);
     		
-    		PlayStyle style = bot.getPlayStyle();
-    		Vector2d movement = new Vector2d(0, 0);
+    		Vector2d direction = bot.move(ball, player);
     		
-    		if(style == PlayStyle.TOBALL) {
-    			movement = BotAlgorithm.toBallPathFinding(bot, ball);
-    		} else if(style == PlayStyle.DEFENDING) {
-    			movement = BotAlgorithm.defendingPathFinding(bot, ball);
-    		} else if(style == PlayStyle.BLOCKING) {
-    			movement = BotAlgorithm.blockingPathFinding(bot, player, ball);
-    		} else if(style == PlayStyle.ATTACKING) {
-    			movement = BotAlgorithm.attackingPathFinding(bot, ball);
-    		}
+    		direction = direction.multiply(bot.velocity.x, bot.velocity.y).multiply(dt);
     		
-    		bot.position = bot.position.add(movement.multiply(dt));
+    		bot.position = bot.position.add(direction);
     	}
     	
     	List<Ball> balls = gameMatch.getBalls();

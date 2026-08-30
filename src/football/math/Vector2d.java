@@ -17,7 +17,7 @@ public class Vector2d {
 	public float dot(Vector2d vector) {
 		float result = 0.0f;
 		
-		result = this.x * vector.getX() + this.y * vector.getY();
+		result = this.x * vector.x + this.y * vector.y;
 		
 		return result;
 	}
@@ -27,8 +27,8 @@ public class Vector2d {
 	}
 	
 	public float getDistance(Vector2d vector) {
-		float dx = this.x - vector.getX();
-		float dy = this.y - vector.getY();
+		float dx = this.x - vector.x;
+		float dy = this.y - vector.y;
 		
 		return (float) Math.sqrt(dx * dx + dy * dy);
 	}
@@ -36,8 +36,8 @@ public class Vector2d {
 	public Vector2d add(Vector2d vector) {
 		var result = new Vector2d();
 		
-		result.setX(this.x + vector.getX());
-		result.setY(this.y + vector.getY());
+		result.setX(this.x + vector.x);
+		result.setY(this.y + vector.y);
 		
 		return result;
 	}
@@ -45,8 +45,8 @@ public class Vector2d {
 	public Vector2d subtract(Vector2d vector) {
 		var result = new Vector2d();
 		
-		result.setX(this.x - vector.getX());
-		result.setY(this.y - vector.getY());
+		result.setX(this.x - vector.x);
+		result.setY(this.y - vector.y);
 		
 		return result;
 	}
@@ -83,23 +83,15 @@ public class Vector2d {
 		return this;
 	}
 	
-	// Getters and Setters
+	// Setters
 	
 	public void set(float x, float y) {
 		this.x = x;
 		this.y = y;
 	}
 
-	public float getX() {
-		return x;
-	}
-
 	public void setX(float x) {
 		this.x = x;
-	}
-
-	public float getY() {
-		return y;
 	}
 
 	public void setY(float y) {

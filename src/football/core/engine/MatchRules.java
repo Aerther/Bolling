@@ -9,8 +9,8 @@ public class MatchRules {
 	    if (ball == null) return GoalSide.NONE;
 
 	    float radius = ball.radius;
-	    float posX = ball.position.getX();
-	    float posY = ball.position.getY();
+	    float posX = ball.position.x;
+	    float posY = ball.position.y;
 
 	    float pitchCenterY = Constants.WINDOW_HEIGHT / 2.0f;
 	    float goalTop = pitchCenterY - (Constants.GOAL_HEIGHT / 2.0f);

@@ -21,9 +21,7 @@ public class BotAlgorithm {
 		
 		Vector2d normal = delta.normalize();
 		
-		Vector2d movement = normal.multiply(bot.velocity.x, bot.velocity.y);
-		
-		return movement;
+		return normal;
 	}
 	
 	public static Vector2d defendingPathFinding(Bot bot, Ball ball) {
@@ -55,9 +53,7 @@ public class BotAlgorithm {
 		
 		Vector2d normal = delta.normalize();
 		
-		Vector2d movement = normal.multiply(bot.velocity.x, bot.velocity.y);
-		
-		return movement;
+		return normal;
 	}
 	
 	public static Vector2d blockingPathFinding(Bot bot, Player player, Ball ball) {
@@ -76,9 +72,7 @@ public class BotAlgorithm {
 		
 		Vector2d normal = delta.normalize();
 		
-		Vector2d movement = normal.multiply(bot.velocity.x, bot.velocity.y);
-		
-		return movement;
+		return normal;
 	}
 	
 	public static Vector2d attackingPathFinding(Bot bot, Ball ball) {
@@ -108,8 +102,6 @@ public class BotAlgorithm {
 		
 		Vector2d normal = delta.normalize();
 		
-		Vector2d movement = normal.multiply(bot.velocity.x, bot.velocity.y);
-		
-		return movement;
+		return normal;
 	}
 }
